@@ -28,7 +28,11 @@ func TestIsPwned(t *testing.T) {
 }
 
 func TestCheckPass(t *testing.T) {
-	res, err := CheckPassword("90-hasnfo;dalkkjklafdsj")
+	pass := "password"
+	res, err := CheckPass(pass)
 	assert.NoError(t, err)
 	assert.NotEmpty(t, res)
+	assert.Equal(t, pass, res.Pass)
+	assert.Zero(t, res.Score)
+	assert.Zero(t, res.CrackTimeSeconds)
 }
