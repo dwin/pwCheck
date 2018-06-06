@@ -10,6 +10,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/nbutton23/zxcvbn-go"
 )
@@ -17,6 +18,8 @@ import (
 const pwnedURL = "https://api.pwnedpasswords.com/range/%s"
 
 var (
+	// ClientTimeout specifies the timeout of the HTTP API Client in seconds
+	ClientTimeout = 5
 	// ErrPassphraseEmpty indicates passphrase input was less than 1 character
 	ErrPassphraseEmpty = errors.New("Passphrase Input Empty")
 )
@@ -51,8 +54,12 @@ func CheckForPwnage(pw string) (pwd *Pwd, err error) {
 	pfx := strings.ToUpper(hex.EncodeToString(hash.Sum(nil))[0:5])
 	sfx := strings.ToUpper(hex.EncodeToString(hash.Sum(nil))[5:])
 
+	// Create HTTP client
+	client := &http.Client{
+		Timeout: time.Duration(int64(ClientTimeout) * int64(time.Second)),
+	}
 	// Send request to pwnedpassword API
-	response, err := http.Get(fmt.Sprintf(pwnedURL, pfx))
+	response, err := client.Get(fmt.Sprintf(pwnedURL, pfx))
 	if err != nil {
 		return &Pwd{false, pw, 0}, fmt.Errorf("HTTP request failed with error; %s", err)
 	}

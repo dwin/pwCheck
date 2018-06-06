@@ -15,6 +15,13 @@ API and the [Dropbox zxcvbn](https://blogs.dropbox.com/tech/2012/04/zxcvbn-reali
 go get github.com/dwin/pwCheck
 ```
 
+## Settings:
+```go
+// ClientTimeout specifies the timeout of the HTTP API Client in seconds
+// A Timeout of zero means no timeout.
+	ClientTimeout = 5
+```
+
 ## Types:
 ```go
 // Pwd is returned as a struct pointer when calling CheckForPwnage
@@ -34,6 +41,7 @@ type CheckResult struct {
 	CrackTimeDisplay string  // CrackTimeDisplay indicates the estimated time in seconds to years or centuries to crack password at ~ 10ms per guess
 }
 ```
+
 ## Functions:
 
 `CheckPass()` sends SHA1 partial hash of password to HaveIBeenPwned.com API 
