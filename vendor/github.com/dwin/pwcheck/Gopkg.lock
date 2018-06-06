@@ -8,12 +8,6 @@
   version = "v1.1.0"
 
 [[projects]]
-  branch = "master"
-  name = "github.com/dwin/pwcheck"
-  packages = ["."]
-  revision = "5e7610ffd6a4e9e65a79e07502f59ed6dda929b5"
-
-[[projects]]
   name = "github.com/nbutton23/zxcvbn-go"
   packages = [
     ".",
@@ -44,6 +38,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "4c50a483a61418eec8ace985ef65f4b3c3ae5645dcf0ba1e6e996645deb5b46d"
+  inputs-digest = "518956eee6e84394c4f37bbacd154d3a1f8f3bf8fc8e8b81bdd125d8c51314a6"
   solver-name = "gps-cdcl"
   solver-version = 1
