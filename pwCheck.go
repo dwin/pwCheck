@@ -10,6 +10,8 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/nbutton23/zxcvbn-go"
 )
 
 const pwnedURL = "https://api.pwnedpasswords.com/range/%s"
@@ -24,6 +26,14 @@ type Pwd struct {
 	Pwned      bool   // Pwned returns true if passphrase is found pwned via API
 	Pass       string // Pass returns the passphrase string passed to the function
 	TimesPwned int    // TimesPwned returns the number of times the passphrase was found in the database
+}
+
+type CheckResult struct {
+	Pwned            bool
+	Pass             string
+	Score            int
+	CrackTimeSeconds float64
+	CrackTimeDisplay string
 }
 
 // CheckForPwnage takes passphrase as string, sends request to API and returns Pwd and error
@@ -66,6 +76,23 @@ func CheckForPwnage(pw string) (pwd *Pwd, err error) {
 	}
 
 	return &Pwd{false, pw, 0}, err
+}
+
+// CheckPassword
+func CheckPassword(pw string) (result CheckResult, err error) {
+	cfp, err := CheckForPwnage(pw)
+	if err != nil {
+		return
+	}
+	score := zxcvbn.PasswordStrength(pw, nil)
+
+	result.Pass = cfp.Pass
+	result.CrackTimeSeconds = score.CrackTime
+	result.CrackTimeDisplay = score.CrackTimeDisplay
+	result.Pwned = cfp.Pwned
+	result.Score = score.Score
+
+	return
 }
 
 // IsPwned check passphrase input string and returns error, returns nil if password is not pwned.
