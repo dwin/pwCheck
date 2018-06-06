@@ -21,19 +21,20 @@ var (
 	ErrPassphraseEmpty = errors.New("Passphrase Input Empty")
 )
 
-// Pwd is returned as a struct pointer when calling CheckForPwnage
+// Pwd is returned as a struct pointer when calling CheckForPwnage()
 type Pwd struct {
 	Pwned      bool   // Pwned returns true if passphrase is found pwned via API
 	Pass       string // Pass returns the passphrase string passed to the function
 	TimesPwned int    // TimesPwned returns the number of times the passphrase was found in the database
 }
 
+// CheckResult is returned as a struct when calling CheckPass()
 type CheckResult struct {
-	Pwned            bool
-	Pass             string
-	Score            int
-	CrackTimeSeconds float64
-	CrackTimeDisplay string
+	Pwned            bool    // Pwned indicates if the pass given was found in previous breach
+	Pass             string  // Pass returns the string passed to the function
+	Score            int     // Score returns a 0-4 score of password strength, useful for gauge etc.
+	CrackTimeSeconds float64 // CrackTimeSeconds indicates the estimated time to crack this password at ~ 10ms per guess in seconds
+	CrackTimeDisplay string  // CrackTimeDisplay indicates the estimated time in seconds to years or centuries to crack password at ~ 10ms per guess
 }
 
 // CheckForPwnage takes passphrase as string, sends request to API and returns Pwd and error
@@ -78,8 +79,8 @@ func CheckForPwnage(pw string) (pwd *Pwd, err error) {
 	return &Pwd{false, pw, 0}, err
 }
 
-// CheckPassword
-func CheckPassword(pw string) (result CheckResult, err error) {
+// CheckPass
+func CheckPass(pw string) (result CheckResult, err error) {
 	cfp, err := CheckForPwnage(pw)
 	if err != nil {
 		return

@@ -27,7 +27,7 @@ func TestIsPwned(t *testing.T) {
 	assert.EqualError(t, err, "Password is pwned")
 }
 
-func TestCheckPassword(t *testing.T) {
+func TestCheckPass(t *testing.T) {
 	res, err := CheckPassword("90-hasnfo;dalkkjklafdsj")
 	assert.NoError(t, err)
 	assert.NotEmpty(t, res)
