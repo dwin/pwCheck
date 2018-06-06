@@ -36,4 +36,21 @@ func main() {
 		// If score is less than 1 this is a weak password and should not be used
 		fmt.Println("* Weak Password")
 	}
+
+	// call checkIsPwnedOnly() this should return true because
+	// there will be an error indicating this password was found
+	if checkIsPwnedOnly(passFromUser) {
+		fmt.Println("Password is compromised")
+	} else {
+		fmt.Println("Password is okay")
+	}
+	// Expected Output
+	// Password is compromised
+}
+
+func checkIsPwnedOnly(pw string) bool {
+	if err := pwcheck.IsPwned(pw); err != nil {
+		return true
+	}
+	return false
 }

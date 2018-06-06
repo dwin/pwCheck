@@ -96,7 +96,8 @@ func CheckPass(pw string) (result CheckResult, err error) {
 	return
 }
 
-// IsPwned check passphrase input string and returns error, returns nil if password is not pwned.
+// IsPwned check passphrase input string and returns error, returns nil if password is
+// not pwned and no other errors occur.
 func IsPwned(pw string) error {
 	pwd, err := CheckForPwnage(pw)
 	if err != nil {

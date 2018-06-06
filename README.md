@@ -35,10 +35,8 @@ type CheckResult struct {
 }
 ```
 ## Functions:
-```go
-func CheckPass(pw string) (result CheckResult, err error)
-```
-CheckPass() sends SHA1 partial hash of password to HaveIBeenPwned.com API 
+
+`CheckPass()` sends SHA1 partial hash of password to HaveIBeenPwned.com API 
 to check for previous compromise and also computes strength using the
 Dropbox "zxcvbn: realistic password strength estimation" method using 
 [zxcvbn-go](https://github.com/nbutton23/zxcvbn-go). 
@@ -46,9 +44,9 @@ Dropbox "zxcvbn: realistic password strength estimation" method using
 
 
 ## Example Usage:
-See [example]()
+> See other [examples](https://github.com/dwin/pwCheck/tree/master/example).
 ```go
-func Example() {
+func example() {
 	userPass := form.Data("password")
 
 	checkRes, err := pwcheck.CheckPass(passFromUser)
