@@ -23,9 +23,12 @@ func TestCheckForPwnage(t *testing.T) {
 }
 
 func TestIsPwned(t *testing.T) {
-	pass := "password"
-	err := IsPwned(pass)
+	// Test is pwned with known bad password
+	err := IsPwned("password")
 	assert.EqualError(t, err, "Password is pwned")
+	// Test is pwned with good password
+	err = IsPwned("90-hasnlkkjklafo;da-hasnfolkkjklafdsj90;dafdsj")
+	assert.NoError(t, err)
 }
 
 func TestCheckPass(t *testing.T) {
