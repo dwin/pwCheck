@@ -74,7 +74,7 @@ func example() {
 ```
 
 # ToDo:
-- [ ] HTTP Client Timeout
+- [x] HTTP Client Timeout
 
 ## Credits:
 - Inspired by: [https://github.com/masonj88/pwchecker](https://github.com/masonj88/pwchecker)
